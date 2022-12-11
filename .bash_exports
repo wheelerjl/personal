@@ -1,0 +1,5 @@
+export EDITOR='code --wait'
+export KUBE_EDITOR='code --wait'
+export PATH=$PATH:/usr/local/go/bin
+export GOBIN=/home/wheelerjl/workspace/go/bin
+export GOPATH=/home/wheelerjl/workspace/go

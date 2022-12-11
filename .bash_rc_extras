@@ -1,0 +1,10 @@
+# Extra custom definitions.
+# ~/.bash_exports
+# ~/.bash_functions
+if [ -f ~/.bash_exports ]; then
+    . ~/.bash_exports
+fi
+
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
+fi
