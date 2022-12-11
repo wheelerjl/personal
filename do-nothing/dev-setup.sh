@@ -12,6 +12,7 @@ opt() { if [[ -z ${2-} ]]; then badopt "$1 flag must be followed by an argument"
 required_args() { for arg in $@; do if [[ -z "${!arg-}" ]]; then badopt "$arg is a required argument"; fi; done; }
 
 status() {
+    echo "  Current Status"
     if grep -q '\\W\\' ~/.bashrc;
     then
         echo "  [X] PS1 Configured"
@@ -116,6 +117,13 @@ status() {
     else
         echo "  [ ] Talos Configured"
     fi
+
+    if [ -n "${BASH_HELPERS-}" ] &>/dev/null
+    then
+        echo "  [X] Bash configured"
+    else
+        echo "  [ ] Bash Configured"
+    fi
 }
 
 ending() {
@@ -141,7 +149,6 @@ if [[ -n ${help-} ]]; then
 fi
 
 echo "  Do-Nothing Script Started"
-echo "  Current Status"
 status
 
 if [[ -n ${dryrun-} ]]; then
@@ -384,6 +391,15 @@ then
     read -n 1 -s -r -p "  Press any key to continue"
 fi
 
-echo "  Current Status"
+if [ -z "${BASH_HELPERS-}" ] &>/dev/null
+then
+    echo "  Custom Bash Configuration"
+    echo "  Update .bashrc file to source the files in this repo's bash directory"
+    echo "      export BASH_HELPERS=\$DIR_TO_THIS_REPO/bash/*"
+    echo "      for file in \$BASH_HELPERS; do . \$file; done"
+    read -n 1 -s -r -p "  Press any key to continue"
+fi
+
+echo ""
 status
 ending
