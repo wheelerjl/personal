@@ -19,7 +19,7 @@ function __kubectl_namespaces {
 complete -F __kubectl_namespaces kn
 
 # Alias and auto-complete function for easily changing kubernetes contexts
-# ex: kc stage
+# ex: kc local
 alias kc='export KUBECONFIG=$(mktemp) && cp ~/.kube/config $KUBECONFIG && kubectl config set current-context &> /dev/null'
 function __kubectl_contexts {
   contexts=$(kubectl config get-contexts --no-headers -o name)
