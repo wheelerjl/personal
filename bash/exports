@@ -3,3 +3,20 @@ export KUBE_EDITOR='code --wait'
 export PATH=$PATH:/usr/local/go/bin
 export GOBIN=/home/wheelerjl/workspace/go/bin
 export GOPATH=/home/wheelerjl/workspace/go
+
+if [[ -f ~/.kube/config ]] && ! echo ${PS1-} | grep -q "current-context"; then
+    export red="$(tput setaf 1)"
+    export blue="$(tput setaf 4)"
+    export cyan="$(tput setaf 6)"
+    
+    export reset="$(tput sgr0)"
+    PS1="\W\$ "
+    
+    current_context='$(if [[ -f ${KUBECONFIG-~/.kube/config} ]] && ! grep -q "current-context: \"\"" ${KUBECONFIG-~/.kube/config}; then
+      cat ${KUBECONFIG-~/.kube/config} | grep current-context | cut -d" " -f2 | sed "s/^/\[${red}\][/; s/\$/]\[${reset}\]:/"
+    fi )'
+
+    current_namespace='$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null | sed "s/^/\[${blue}\][/; s/\$/]\[${reset}\]:/")'
+    current_branch='$(git rev-parse --git-dir >/dev/null 2>&1 && git symbolic-ref --short HEAD | sed "s/^/\[${cyan}\][/; s/\$/]\[${reset}\]:/")'
+    export PS1="${current_context}${current_namespace}${current_branch}${PS1-}"
+fi

@@ -8,11 +8,34 @@ function __work {
 }
 complete -F __work work
 
+# Kubernetes
+# Alias and auto-complete function for easily changing kubernetes namespace
+# ex: kn tools
+alias kn='kubectl config set-context --current --namespace &> /dev/null'
+function __kubectl_namespaces {
+  namespaces=$(kubectl get ns --no-headers -o custom-columns=":metadata.name")
+  COMPREPLY=($(compgen -W "$namespaces" "${COMP_WORDS[1]}"))
+}
+complete -F __kubectl_namespaces kn
+
+# Alias and auto-complete function for easily changing kubernetes contexts
+# ex: kc stage
+alias kc='export KUBECONFIG=$(mktemp) && cp ~/.kube/config $KUBECONFIG && kubectl config set current-context &> /dev/null'
+function __kubectl_contexts {
+  contexts=$(kubectl config get-contexts --no-headers -o name)
+  COMPREPLY=($(compgen -W "$contexts" "${COMP_WORDS[1]}"))
+}
+complete -F __kubectl_contexts kc
+
+kc local &> /dev/null
+
+# Delete local git branches that have been deleted from origin
 function prune() {
     git remote prune origin
     git branch --v | grep "\[gone\]" | awk '{print $1}' | xargs git branch -D
 }
 
+# Print a go-pher
 function gopher() {
   cyan=`tput setaf 14`
   beige=`tput setaf 215`
