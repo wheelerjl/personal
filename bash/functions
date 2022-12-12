@@ -27,6 +27,7 @@ function __kubectl_contexts {
 }
 complete -F __kubectl_contexts kc
 
+# Ensure all new shells default to local cluster
 kc local &> /dev/null
 
 # Delete local git branches that have been deleted from origin
@@ -42,6 +43,7 @@ function gopher() {
   white=`tput setaf 15`
   black=`tput setaf 0`
   reset=`tput sgr0`
+  echo "${reset}"
   echo $"${cyan}      ´.-::::::-.´"
   echo $"${cyan}  .:-::::::::::::::-:."
   echo $"${cyan}  ´_::${white}:    ::    :${cyan}::_´"
