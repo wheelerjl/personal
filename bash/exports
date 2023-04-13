@@ -6,13 +6,26 @@ export GOPATH=/home/wheelerjl/workspace/go
 
 # Use updated PS1 once kubeconfig is available
 if [[ -f ~/.kube/config ]] && ! echo ${PS1-} | grep -q "current-context"; then
+    PS1="\W\$ "
+
     export red="$(tput setaf 1)"
+    export green="$(tput setaf 2)"
+    export orange="$(tput setaf 166)"
     export blue="$(tput setaf 4)"
     export cyan="$(tput setaf 6)"
     export reset="$(tput sgr0)"
-    PS1="\W\$ "
+    
+
     current_context='$(if [[ -f ${KUBECONFIG-~/.kube/config} ]] && ! grep -q "current-context: \"\"" ${KUBECONFIG-~/.kube/config}; then
-      cat ${KUBECONFIG-~/.kube/config} | grep current-context | cut -d" " -f2 | sed "s/^/\[${red}\][/; s/\$/]\[${reset}\]:/"
+      if [[ "$(kubectl config current-context)" == "local" ]]; then
+        echo -n "\[${green}\][local]\[${reset}\]:"
+      elif [[ "$(kubectl config current-context)" == "stage" ]]; then
+        echo -n "\[${orange}\][stage]\[${reset}\]:"
+      elif [[ "$(kubectl config current-context)" == "prod" ]]; then
+        echo -n "\[${red}\]:rotating_light:\[${reset}\]\[${red}\][prod]\[${reset}\]:rotating_light::"
+      else
+        echo -n ""
+      fi
     fi )'
 
     current_namespace='$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null | sed "s/^/\[${blue}\][/; s/\$/]\[${reset}\]:/")'
