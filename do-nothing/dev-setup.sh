@@ -12,14 +12,6 @@ opt() { if [[ -z ${2-} ]]; then badopt "$1 flag must be followed by an argument"
 required_args() { for arg in $@; do if [[ -z "${!arg-}" ]]; then badopt "$arg is a required argument"; fi; done; }
 
 status() {
-    echo "  Current Status"
-    if grep -q '\\W\\' ~/.bashrc;
-    then
-        echo "  [X] PS1 Configured"
-    else
-        echo "  [ ] PS1 Configured"
-    fi
-
     if command -v git &> /dev/null
     then
         echo "  [X] Git Configured"
@@ -168,15 +160,6 @@ if [[ ! -n ${skipapt-} ]]; then
     echo ""
 fi
 
-if ! grep -q '\\W\\' ~/.bashrc;
-then
-    echo "  PS1 Configuration"
-    echo "  Update PS1 so it only shows the current directory, not the full path to the directory"
-    echo "      From within the ~/.bashrc file, change all instances of \\w\\ to \\W\\"
-    read -n 1 -s -r -p "  Press any key to continue"
-    echo ""
-fi
-
 if ! command -v git &> /dev/null
 then
     echo "  Git Installation"
@@ -309,8 +292,8 @@ fi
 if ! command -v terraform &> /dev/null
 then
     echo "  Terraform Installation"
+    echo "  Documentation: https://learn.hashicorp.com/tutorials/terraform/install-cli"
     echo "  Install Terraform with the following commands"
-    echo "      Documentation: https://learn.hashicorp.com/tutorials/terraform/install-cli"
     echo "      sudo apt-get update && sudo apt-get install -y gnupg software-properties-common"
     echo "      wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg"
                 # Note jammy is hardcoded here instead of the command in the instructions since my linux version is mint and not base ubuntu, jammy is ubuntu base image
