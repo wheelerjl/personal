@@ -4,10 +4,9 @@ export PATH=$PATH:/usr/local/go/bin
 export GOBIN=/home/wheelerjl/workspace/go/bin
 export GOPATH=/home/wheelerjl/workspace/go
 
+PS1="\W\$ "
 # Use updated PS1 once kubeconfig is available
 if [[ -f ~/.kube/config ]] && ! echo ${PS1-} | grep -q "current-context"; then
-    PS1="\W\$ "
-
     export red="$(tput setaf 1)"
     export green="$(tput setaf 2)"
     export orange="$(tput setaf 166)"
