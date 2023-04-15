@@ -142,6 +142,11 @@ fi
 
 echo "  Do-Nothing Script Started"
 status
+if ! status | grep -q "\[\s\]"; then
+  echo "  Nothing to do, all tools installed"
+  exit 1
+fi
+
 
 if [[ -n ${dryrun-} ]]; then
     ending
@@ -358,8 +363,8 @@ then
     echo "  Kind Installation"
     echo "  Documentation: https://kind.sigs.k8s.io/docs/user/quick-start/#installing-from-release-binaries"
     echo "  Install Kind with the following commands"
-    echo "      curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64"
-    echo "      chmod +x /usr/local/bin/kind"
+    echo "      sudo curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/v0.18.0/kind-linux-amd64"
+    echo "      sudo chmod +x /usr/local/bin/kind"
     read -n 1 -s -r -p "  Press any key to continue"
     echo ""
 fi
@@ -369,8 +374,8 @@ then
     echo "  Talos Installation"
     echo "  Documentation: https://www.talos.dev/v1.0/introduction/getting-started/"
     echo "  Install Talos with the following commands"
-    echo "      curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/v1.2.7/talosctl-\$(uname -s | tr \"[:upper:]\" \"[:lower:]\")-amd64"
-    echo "      chmod +x /usr/local/bin/talosctl"
+    echo "      sudo curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/v1.3.5/talosctl-\$(uname -s | tr \"[:upper:]\" \"[:lower:]\")-amd64"
+    echo "      sudo chmod +x /usr/local/bin/talosctl"
     read -n 1 -s -r -p "  Press any key to continue"
 fi
 

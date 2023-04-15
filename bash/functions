@@ -27,9 +27,6 @@ function __kubectl_contexts {
 }
 complete -F __kubectl_contexts kc
 
-# Ensure all new shells default to local cluster
-kc local &> /dev/null
-
 # Delete local git branches that have been deleted from origin
 function prune() {
     git remote prune origin
@@ -58,3 +55,9 @@ function gopher() {
   echo $"${beige}      oO${cyan}:::::::${beige}Oo"
   echo "${reset}"
 }
+
+# Ensure all new shells default to local cluster
+if [[ -f ${KUBECONFIG-~/.kube/config} ]]; then
+  kc local &> /dev/null
+fi
+gopher
