@@ -28,7 +28,7 @@ tasks:
         PGPASSWORD=postgres psql -h localhost -p 5432 -U postgres {{if .CLI_ARGS}}-d {{.CLI_ARGS}}{{end}} 
  
   rebuild:
-    desc: Runs all git commands, clone/main/prune
+    desc: Rebuilds postgres, stops and rm any existing containers
     cmds:
       - task: stop
       - task: prune
