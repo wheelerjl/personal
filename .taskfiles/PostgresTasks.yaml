@@ -1,0 +1,35 @@
+---
+version: "3"
+
+tasks:
+
+  start:
+    desc: Use docker to start a postgres container
+    cmds:
+      - |
+        docker run --name postgres-local -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres {{if .CLI_ARGS}}-e POSTGRES_DB={{.CLI_ARGS}}{{end}} -p 5432:5432 -d postgres
+
+  stop:
+    desc: Stop running postgres container 
+    cmds:
+      - |
+        docker stop postgres-local || :
+
+  prune:
+    desc: Prune postgres container  
+    cmds:
+      - |
+        docker container rm postgres-local || :
+
+  connect:
+    desc: Connect to running postgres container with psql 
+    cmds:
+      - |
+        PGPASSWORD=postgres psql -h localhost -p 5432 -U postgres {{if .CLI_ARGS}}-d {{.CLI_ARGS}}{{end}} 
+ 
+  rebuild:
+    desc: Runs all git commands, clone/main/prune
+    cmds:
+      - task: stop
+      - task: prune
+      - task: start

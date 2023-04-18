@@ -110,6 +110,13 @@ status() {
         echo "  [ ] Talos Configured"
     fi
 
+    if command -v task &> /dev/null
+    then
+        echo "  [X] Task configured"
+    else
+        echo "  [ ] Task Configured"
+    fi
+
     if [ -n "${BASH_HELPERS-}" ] &>/dev/null
     then
         echo "  [X] Bash configured"
@@ -376,6 +383,15 @@ then
     echo "  Install Talos with the following commands"
     echo "      sudo curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/v1.3.5/talosctl-\$(uname -s | tr \"[:upper:]\" \"[:lower:]\")-amd64"
     echo "      sudo chmod +x /usr/local/bin/talosctl"
+    read -n 1 -s -r -p "  Press any key to continue"
+fi
+
+if ! command -v task &> /dev/null
+then
+    echo "  Install Task with the following commands"
+    echo "      wget -O ~/Downloads/task.deb https://github.com/go-task/task/releases/download/v3.24.0/task_linux_amd64.deb"
+    echo "      sudo apt install ~/Downloads/task.deb"
+    echo "      rm -rf ~/Downloads/task.deb"
     read -n 1 -s -r -p "  Press any key to continue"
 fi
 

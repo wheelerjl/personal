@@ -1,0 +1,15 @@
+# https://taskfile.dev
+---
+version: '3'
+
+env:
+  GOPATH: $GOPATH
+
+includes:
+  postgres: .taskfiles/PostgresTasks.yaml
+
+tasks:
+  gopath:
+    desc: Prints GOPATH env variable, included to have a working example of using task variables
+    cmds:
+      - echo "{{.GOPATH}}"
