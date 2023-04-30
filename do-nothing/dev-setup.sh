@@ -147,12 +147,12 @@ if [[ -n ${help-} ]]; then
     exit 1
 fi
 
-echo "  Do-Nothing Script Started"
-status
-if ! status | grep -q "\[\s\]"; then
-  echo "  Nothing to do, all tools installed"
-  exit 1
-fi
+#echo "  Do-Nothing Script Started"
+#status
+#if ! status | grep -q "\[\s\]"; then
+#  echo "  Nothing to do, all tools installed"
+#  exit 1
+#fi
 
 
 if [[ -n ${dryrun-} ]]; then
@@ -381,7 +381,7 @@ then
     echo "  Talos Installation"
     echo "  Documentation: https://www.talos.dev/v1.0/introduction/getting-started/"
     echo "  Install Talos with the following commands"
-    echo "      sudo curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/v1.3.5/talosctl-\$(uname -s | tr \"[:upper:]\" \"[:lower:]\")-amd64"
+    echo "      sudo curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/v1.4.1/talosctl-\$(uname -s | tr \"[:upper:]\" \"[:lower:]\")-amd64"
     echo "      sudo chmod +x /usr/local/bin/talosctl"
     read -n 1 -s -r -p "  Press any key to continue"
 fi
