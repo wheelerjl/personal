@@ -56,8 +56,4 @@ function gopher() {
   echo "${reset}"
 }
 
-# Ensure all new shells default to local cluster
-if [[ -f ${KUBECONFIG-~/.kube/config} ]]; then
-  kc local &> /dev/null
-fi
 gopher
