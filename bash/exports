@@ -21,6 +21,8 @@ if [[ -f ~/.kube/config ]] && ! echo ${PS1-} | grep -q "current-context"; then
     current_context='$(if [[ -f ${KUBECONFIG-~/.kube/config} ]] && ! grep -q "current-context: \"\"" ${KUBECONFIG-~/.kube/config}; then
       if [[ "$(kubectl config current-context)" == "local" ]]; then
         echo -n "\[${green}\][local]\[${reset}\]:"
+      elif [[ "$(kubectl config current-context)" == "admin@oruse" ]]; then
+        echo -n "\[${green}\][oruse]\[${reset}\]:"
       elif [[ "$(kubectl config current-context)" == "dev" ]]; then
         echo -n "\[${green}\][dev]\[${reset}\]:"
       elif [[ "$(kubectl config current-context)" == "test" ]]; then
