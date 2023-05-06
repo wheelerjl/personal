@@ -56,4 +56,15 @@ function gopher() {
   echo "${reset}"
 }
 
-gopher
+kc local
+
+if command -v pokemon-colorscripts &> /dev/null; then
+  random_number=$((1 + RANDOM % 152))
+  if [ "$random_number" -eq 152 ]; then
+    gopher
+  else
+    pokemon-colorscripts -r 1 --no-title
+  fi
+else
+  gopher
+fi

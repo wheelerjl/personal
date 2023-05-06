@@ -27,7 +27,7 @@ fi
 
 KUBECONFIG=~/.kube/config
 
-kind create cluster --config local-cluster.yaml --name local
+kind create cluster --config local-cluster.yaml
 
 cat ~/.kube/config | sed 's/kind-local/local/g' > /tmp/config
 cp /tmp/config ~/.kube/config

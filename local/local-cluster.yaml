@@ -1,9 +1,10 @@
 ---
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
+name: local
 nodes:
   - role: control-plane
-    image: kindest/node:v1.26.3@sha256:61b92f38dff6ccc29969e7aa154d34e38b89443af1a2c14e6cfbd2df6419c66f
+    image: kindest/node:v1.27.1@sha256:f957f0636f30b105e15ed00932b25d175eaf08d5d11735e8d6ec73325ebd5b02
     kubeadmConfigPatches:
       - |
         kind: InitConfiguration
