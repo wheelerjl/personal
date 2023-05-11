@@ -117,6 +117,13 @@ status() {
         echo "  [ ] Task Configured"
     fi
 
+    if command -v flux &> /dev/null
+    then
+        echo "  [X] Flux configured"
+    else
+        echo "  [ ] Flux Configured"
+    fi
+
     if [ -n "${BASH_HELPERS-}" ] &>/dev/null
     then
         echo "  [X] Bash configured"
@@ -392,6 +399,13 @@ then
     echo "      wget -O ~/Downloads/task.deb https://github.com/go-task/task/releases/download/v3.24.0/task_linux_amd64.deb"
     echo "      sudo apt install ~/Downloads/task.deb"
     echo "      rm -rf ~/Downloads/task.deb"
+    read -n 1 -s -r -p "  Press any key to continue"
+fi
+
+if ! command -v flux &> /dev/null
+then
+    echo "  Install Task with the following commands"
+    echo "      curl -s https://fluxcd.io/install.sh | sudo bash"
     read -n 1 -s -r -p "  Press any key to continue"
 fi
 
