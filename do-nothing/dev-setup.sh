@@ -33,13 +33,6 @@ status() {
         echo "  [ ] Firacode Configured"
     fi
 
-    if command -v notepadqq &> /dev/null
-    then
-        echo "  [X] NotepadQQ Configured"
-    else
-        echo "  [ ] NotepadQQ Configured"
-    fi
-
     if command -v go &> /dev/null
     then
         echo "  [X] Golang Configured"
@@ -244,16 +237,6 @@ then
     echo ""
 fi
 
-if ! command -v notepadqq &> /dev/null
-then
-    echo "  NotepadQQ Installation"
-    echo "  Documentation: https://notepadqq.com/wp/download/"
-    echo "  Install git with the following commands"
-    echo "      sudo apt install notepadqq"
-    read -n 1 -s -r -p "  Press any key to continue"
-    echo ""
-fi
-
 if ! command -v go &> /dev/null
 then
     echo "  Golang Installation"
@@ -404,7 +387,7 @@ fi
 
 if ! command -v flux &> /dev/null
 then
-    echo "  Install Task with the following commands"
+    echo "  Install Flux with the following commands"
     echo "      curl -s https://fluxcd.io/install.sh | sudo bash"
     read -n 1 -s -r -p "  Press any key to continue"
 fi
