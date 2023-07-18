@@ -1,8 +1,12 @@
 export EDITOR='code --wait'
 export KUBE_EDITOR='code --wait'
 export PATH=$PATH:/usr/local/go/bin
-export GOBIN=/home/wheelerjl/workspace/go/bin
-export GOPATH=/home/wheelerjl/workspace/go
+
+if [[ -d "/home/wheelerjl/workspace/go" ]]; then
+    export GOBIN=/home/wheelerjl/workspace/go/bin
+    export GOPATH=/home/wheelerjl/workspace/go
+    export PATH=$PATH:$GOBIN
+fi
 
 PS1="\W\$ "
 # Prefix PS1 with git branch if in git repo directory
