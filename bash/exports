@@ -34,7 +34,7 @@ if [[ -f ~/.kube/config ]] && ! echo ${PS1-} | grep -q "current-context"; then
       elif [[ "$(kubectl config current-context)" == "stage" ]]; then
         echo -n "\[${orange}\][stage]\[${reset}\]:"
       elif [[ "$(kubectl config current-context)" == "prod" ]]; then
-        echo -n "\[${red}\]:rotating_light:\[${reset}\]\[${red}\][prod]\[${reset}\]:rotating_light::"
+        echo -n "\[${red}\][prod]\[${reset}\]:"
       else
         echo -n ""
       fi
