@@ -12,16 +12,18 @@ PS1="\W\$ "
 # Prefix PS1 with git branch if in git repo directory
 current_branch='$(git rev-parse --git-dir >/dev/null 2>&1 && git symbolic-ref --short HEAD | sed "s/^/\[${cyan}\][/; s/\$/]\[${reset}\]:/")'
 export PS1="${current_branch}${PS1-}"
+export black="$(tput setaf 0)"
+export red="$(tput setaf 1)"
+export green="$(tput setaf 2)"
+export blue="$(tput setaf 4)"
+export cyan="$(tput setaf 6)"
+export white="$(tput setaf 15)"
+export orange="$(tput setaf 166)"
+export beige="$(tput setaf 215)"
+export reset="$(tput sgr0)"
+
 # Use updated PS1 once kubeconfig is available
 if [[ -f ~/.kube/config ]] && ! echo ${PS1-} | grep -q "current-context"; then
-    export red="$(tput setaf 1)"
-    export green="$(tput setaf 2)"
-    export orange="$(tput setaf 166)"
-    export blue="$(tput setaf 4)"
-    export cyan="$(tput setaf 6)"
-    export reset="$(tput sgr0)"
-    
-
     current_context='$(if [[ -f ${KUBECONFIG-~/.kube/config} ]] && ! grep -q "current-context: \"\"" ${KUBECONFIG-~/.kube/config}; then
       if [[ "$(kubectl config current-context)" == "local" ]]; then
         echo -n "\[${green}\][local]\[${reset}\]:"

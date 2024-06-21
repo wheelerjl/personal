@@ -37,11 +37,6 @@ function prune() {
 
 # Print a go-pher
 function gopher() {
-  cyan=`tput setaf 14`
-  beige=`tput setaf 215`
-  white=`tput setaf 15`
-  black=`tput setaf 0`
-  reset=`tput sgr0`
   echo "${reset}"
   echo $"${cyan}      ´.-::::::-.´"
   echo $"${cyan}  .:-::::::::::::::-:."
