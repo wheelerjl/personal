@@ -10,22 +10,24 @@ complete -F __work work
 
 # Kubernetes
 # Alias and auto-complete function for easily changing kubernetes namespace
-# ex: kn tools
-alias kn='kubectl config set-context --current --namespace &> /dev/null'
-function __kubectl_namespaces {
-  namespaces=$(kubectl get ns --no-headers -o custom-columns=":metadata.name")
-  COMPREPLY=($(compgen -W "$namespaces" "${COMP_WORDS[1]}"))
-}
-complete -F __kubectl_namespaces kn
+if [[ -f ~/.kube/config ]]; then
+  # ex: kn tools
+  alias kn='kubectl config set-context --current --namespace &> /dev/null'
+  function __kubectl_namespaces {
+    namespaces=$(kubectl get ns --no-headers -o custom-columns=":metadata.name")
+    COMPREPLY=($(compgen -W "$namespaces" "${COMP_WORDS[1]}"))
+  }
+  complete -F __kubectl_namespaces kn
 
-# Alias and auto-complete function for easily changing kubernetes contexts
-# ex: kc local
-alias kc='export KUBECONFIG=$(mktemp) && cp ~/.kube/config $KUBECONFIG && kubectl config set current-context &> /dev/null'
-function __kubectl_contexts {
-  contexts=$(kubectl config get-contexts --no-headers -o name)
-  COMPREPLY=($(compgen -W "$contexts" "${COMP_WORDS[1]}"))
-}
-complete -F __kubectl_contexts kc
+  # Alias and auto-complete function for easily changing kubernetes contexts
+  # ex: kc local
+  alias kc='export KUBECONFIG=$(mktemp) && cp ~/.kube/config $KUBECONFIG && kubectl config set current-context &> /dev/null'
+  function __kubectl_contexts {
+    contexts=$(kubectl config get-contexts --no-headers -o name)
+    COMPREPLY=($(compgen -W "$contexts" "${COMP_WORDS[1]}"))
+  }
+  complete -F __kubectl_contexts kc
+fi
 
 # Delete local git branches that have been deleted from origin
 function prune() {
@@ -56,12 +58,16 @@ function gopher() {
   echo "${reset}"
 }
 
-kc local
+if [[ -f ~/.kube/config ]]; then
+  kc local
+fi
 
 if command -v flux &> /dev/null; then
   . <(flux completion bash)
 fi
 
+# Print a few things when terminal starts
+date
 if command -v pokemon-colorscripts &> /dev/null; then
   random_number=$((1 + RANDOM % 152))
   if [ "$random_number" -eq 152 ]; then
