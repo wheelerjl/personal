@@ -2,7 +2,7 @@
 
 ## background
 Image to use as desktop background.
-Source: https://rare-gallery.com/407195-airships-sailboats-pixiv-vehicle-battle-landscape-sky.html
+Source: https://www.pixiv.net/en/artworks/69720677
 
 ## bash
 Bash imports to setup local environment quickly
