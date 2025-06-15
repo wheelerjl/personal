@@ -1,6 +1,7 @@
 export EDITOR='code --wait'
 export KUBE_EDITOR='code --wait'
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/bin
 
 if [[ -d "/home/wheelerjl/workspace/go" ]]; then
     export GOBIN=/home/wheelerjl/workspace/go/bin
